@@ -1,3 +1,13 @@
+const HIGH_CARD = 0
+const PAIRS = 1
+const TWO_PAIRS = 2
+const THREE_OF_A_KIND = 3
+const STRAIGHT = 4
+const FLUSH = 5
+const FULL_HOUSE = 6
+const FOUR_OF_A_KIND = 7
+const STRAIGHT_FLUSH = 8
+
 const suits = ['S', 'D', 'H', 'C']
 
 // helpers
@@ -33,7 +43,7 @@ function StraightFlush (cards, count) {
   if (Object.keys(count).length !== 5) return false
 
   return sameSuit(cards) && fiveConsecutive(cards) ? {
-    combo: 'straight-flush',
+    combo: STRAIGHT_FLUSH,
     result: cards.map(card => card.face)
   } : false
 }
@@ -50,7 +60,7 @@ function FourOfAKind (cards, count) {
   })
 
   return found ? {
-    combo: '4-of-a-kind',
+    combo: FOUR_OF_A_KIND,
     result: found
   } : false
 }
@@ -62,7 +72,7 @@ function FullHouse (cards, count) {
   const pairs = getPairs(count)
 
   return triples && pairs ? {
-    combo: 'full-house',
+    combo: FULL_HOUSE,
     result: {
       triples: triples.result,
       pairs: pairs[0]
@@ -74,7 +84,7 @@ function Flush (cards) {
   console.log('flush')
 
   return sameSuit(cards) ? {
-    combo: 'flush',
+    combo: FLUSH,
     result: cards[0].suit
   } : false
 }
@@ -85,7 +95,7 @@ function Straight (cards, count) {
   if (Object.keys(count).length !== 5) return false
 
   return fiveConsecutive(cards) ? {
-    combo: 'straight',
+    combo: STRAIGHT,
     result: cards.map(card => card.face)
   } : false
 }
@@ -102,7 +112,7 @@ function ThreeOfAKind (cards, count) {
   })
 
   return found ? {
-    combo: '3-of-a-kind',
+    combo: THREE_OF_A_KIND,
     result: found
   } : false
 }
@@ -113,7 +123,7 @@ function Pairs (cards, count) {
   const pairs = getPairs(count)
 
   return pairs ? {
-    combo: pairs.length === 2 ? 'two-pairs' : 'pairs',
+    combo: pairs.length === 2 ? TWO_PAIRS : PAIRS,
     result: pairs
   } : false
 }
@@ -122,7 +132,7 @@ function HighCard (cards) {
   console.log('high card')
 
   return {
-    combo: 'high-card',
+    combo: HIGH_CARD,
     result: cards[0].face
   }
 }
