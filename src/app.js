@@ -1,4 +1,4 @@
-const HandChecks  = require('./hands.js')
+const HandChecks = require('./hands.js')
 
 function sort (hand) {
   return hand.sort((a, b) => {
@@ -41,7 +41,6 @@ function parse (hand) {
   }
 }
 
-
 function performChecks ({cards, count}) {
   HandChecks.some(check => {
     const result = check(cards, count)
@@ -51,7 +50,6 @@ function performChecks ({cards, count}) {
     return result.combo ? true : result
   })
 }
-
 
 function process (cards) {
   const payload = parse(cards)
