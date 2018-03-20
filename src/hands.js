@@ -113,8 +113,6 @@ function ThreeOfAKind (cards, count) {
 function Pairs (cards, count) {
   const pairs = getPairs(count)
 
-  console.log('pppp', pairs)
-
   return pairs ? {
     combo: pairs.length === 2 ? TWO_PAIRS : PAIRS,
     result: pairs
