@@ -42,9 +42,9 @@ function process (cards) {
     })
   }
 
-  function performChecks (payload) {
+  function performChecks ({cards, count}) {
     HandChecks.some(check => {
-      const result = check(payload)
+      const result = check(cards, count)
 
       console.log(result)
 

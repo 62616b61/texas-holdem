@@ -27,7 +27,7 @@ function getPairs (count) {
 }
 
 // checks
-function StraightFlush ({cards, count}) {
+function StraightFlush (cards, count) {
   console.log('straight flush')
 
   if (Object.keys(count).length !== 5) return false
@@ -38,7 +38,7 @@ function StraightFlush ({cards, count}) {
   } : false
 }
 
-function FourOfAKind ({cards, count}) {
+function FourOfAKind (cards, count) {
   console.log('four of a kind')
 
   let found = null
@@ -55,10 +55,10 @@ function FourOfAKind ({cards, count}) {
   } : false
 }
 
-function FullHouse ({cards, count}) {
+function FullHouse (cards, count) {
   console.log('full house')
 
-  const triples = ThreeOfAKind({cards, count})
+  const triples = ThreeOfAKind(cards, count)
   const pairs = getPairs(count)
 
   return triples && pairs ? {
@@ -70,7 +70,7 @@ function FullHouse ({cards, count}) {
   } : false
 }
 
-function Flush ({cards}) {
+function Flush (cards) {
   console.log('flush')
 
   return sameSuit(cards) ? {
@@ -79,7 +79,7 @@ function Flush ({cards}) {
   } : false
 }
 
-function Straight ({cards, count}) {
+function Straight (cards, count) {
   console.log('straight')
 
   if (Object.keys(count).length !== 5) return false
@@ -90,7 +90,7 @@ function Straight ({cards, count}) {
   } : false
 }
 
-function ThreeOfAKind ({cards, count}) {
+function ThreeOfAKind (cards, count) {
   console.log('three of a kind')
 
   let found = null
@@ -107,7 +107,7 @@ function ThreeOfAKind ({cards, count}) {
   } : false
 }
 
-function Pairs ({cards, count}) {
+function Pairs (cards, count) {
   console.log('pairs')
 
   const pairs = getPairs(count)
@@ -118,7 +118,7 @@ function Pairs ({cards, count}) {
   } : false
 }
 
-function HighCard ({cards}) {
+function HighCard (cards) {
   console.log('high card')
 
   return {
