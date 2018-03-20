@@ -1,12 +1,14 @@
-const HIGH_CARD = 0
-const PAIRS = 1
-const TWO_PAIRS = 2
-const THREE_OF_A_KIND = 3
-const STRAIGHT = 4
-const FLUSH = 5
-const FULL_HOUSE = 6
-const FOUR_OF_A_KIND = 7
-const STRAIGHT_FLUSH = 8
+const {
+  HIGH_CARD,
+  PAIRS,
+  TWO_PAIRS,
+  THREE_OF_A_KIND,
+  STRAIGHT,
+  FLUSH,
+  FULL_HOUSE,
+  FOUR_OF_A_KIND,
+  STRAIGHT_FLUSH,
+} = require('./utils/handCodes.js')
 
 const suits = ['S', 'D', 'H', 'C']
 
@@ -33,24 +35,26 @@ function getPairs (count) {
     }
   })
 
-  return found.length ? found : false
+  return found.length
+    ? found.sort((a, b) => a + b)
+    : false
+}
+
+function getFaces (cards) {
+  return cards.map(card => card.face)
 }
 
 // checks
 function StraightFlush (cards, count) {
-  console.log('straight flush')
-
   if (Object.keys(count).length !== 5) return false
 
   return sameSuit(cards) && fiveConsecutive(cards) ? {
     combo: STRAIGHT_FLUSH,
-    result: cards.map(card => card.face)
+    result: getFaces(cards)
   } : false
 }
 
 function FourOfAKind (cards, count) {
-  console.log('four of a kind')
-
   let found = null
   Object.keys(count).some(face => {
     if (count[face] === 4) {
@@ -66,43 +70,32 @@ function FourOfAKind (cards, count) {
 }
 
 function FullHouse (cards, count) {
-  console.log('full house')
-
   const triples = ThreeOfAKind(cards, count)
   const pairs = getPairs(count)
 
   return triples && pairs ? {
     combo: FULL_HOUSE,
-    result: {
-      triples: triples.result,
-      pairs: pairs[0]
-    }
+    result: Object.assign([], triples.result, pairs[0])
   } : false
 }
 
 function Flush (cards) {
-  console.log('flush')
-
   return sameSuit(cards) ? {
     combo: FLUSH,
-    result: cards[0].suit
+    result: getFaces(cards)
   } : false
 }
 
 function Straight (cards, count) {
-  console.log('straight')
-
   if (Object.keys(count).length !== 5) return false
 
   return fiveConsecutive(cards) ? {
     combo: STRAIGHT,
-    result: cards.map(card => card.face)
+    result: getFaces(cards)
   } : false
 }
 
 function ThreeOfAKind (cards, count) {
-  console.log('three of a kind')
-
   let found = null
   Object.keys(count).some(face => {
     if (count[face] === 3) {
@@ -118,9 +111,9 @@ function ThreeOfAKind (cards, count) {
 }
 
 function Pairs (cards, count) {
-  console.log('pairs')
-
   const pairs = getPairs(count)
+
+  console.log('pppp', pairs)
 
   return pairs ? {
     combo: pairs.length === 2 ? TWO_PAIRS : PAIRS,
@@ -129,8 +122,6 @@ function Pairs (cards, count) {
 }
 
 function HighCard (cards) {
-  console.log('high card')
-
   return {
     combo: HIGH_CARD,
     result: cards[0].face

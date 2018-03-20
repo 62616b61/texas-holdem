@@ -1,12 +1,14 @@
-const HandChecks = require('./hands.js')
+const handChecks = require('./hands.js')
 
-function sort (hand) {
+function sortCards (hand) {
   return hand.sort((a, b) => {
-    return a.face > b.face ? -1 : (b.face > a.face ? 1 : 0)
+    return a.face > b.face
+      ? -1
+      : (b.face > a.face ? 1 : 0)
   })
 }
 
-function parse (hand) {
+function parse (array) {
   const faceToNum = {
     T: 10,
     J: 11,
@@ -15,17 +17,19 @@ function parse (hand) {
     A: 14
   }
 
-  const cards = hand.map(card => {
-    const face = card[0]
-    const suit = card[1]
+  for (let i = 0; i < array.length; i++) {
+    const face = array[i][0]
+    const suit = array[i][1]
 
-    return {
+    array[i] = {
       face: parseInt(face) ? parseInt(face) : faceToNum[face],
       suit
     }
-  })
+  }
+}
 
-  const count = cards.reduce((acc, card) => {
+function countCards (hand) {
+  return hand.reduce((acc, card) => {
     if (acc[card.face]) {
       acc[card.face]++
     } else {
@@ -34,29 +38,67 @@ function parse (hand) {
 
     return acc
   }, {})
-
-  return {
-    cards: sort(cards),
-    count
-  }
 }
 
-function performChecks ({cards, count}) {
-  HandChecks.some(check => {
+function generateCombinations(table, player) {
+  const hands = []
+
+  for (let i = 0; i < table.length; i++) {
+    for (let j = i + 1; j < table.length; j++) {
+      const hand = Object.assign([], table)
+      hand[i] = player[0]
+      hand[j] = player[1]
+
+      hands.push(hand)
+    }
+  }
+
+  return hands
+}
+
+function findRank (cards, count) {
+  let rank
+
+  handChecks.some(check => {
     const result = check(cards, count)
 
-    console.log(result)
+    if (result) {
+      rank = result
+      return true
+    }
 
-    return result.combo ? true : result
+    return false
+  })
+
+  return rank
+}
+
+function process () {
+  const table = ['KS', 'AD', '3H', '7C', 'TD']
+  const players = {
+    john: ['9H', '7S'],
+    becky: ['JD', 'QC'],
+    sam: ['AC', 'KH']
+  }
+
+  parse(table)
+  Object.keys(players).forEach(player => {
+    console.log('checking player', player)
+    parse(players[player])
+
+    // Generate combinations
+    const combinations = generateCombinations(table, players[player])
+
+    const ranks = combinations.map(h => {
+      const hand = sortCards(h)
+      const count = countCards(hand)
+      const rank = findRank(hand, count)
+
+      return rank
+    })
+
+    console.log('ranks', ranks)
   })
 }
 
-function process (cards) {
-  const payload = parse(cards)
-
-  console.log('PAYLOAD', payload)
-
-  performChecks(payload)
-}
-
-process(['KS', 'KS', 'KH', 'JS', 'JC'])
+process()
