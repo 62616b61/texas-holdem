@@ -101,21 +101,15 @@ function sortRanks (ranks) {
   })
 }
 
-function process () {
-  const table = ['KS', 'AD', '3H', '7C', 'TD']
-  const players = {
-    john: ['9H', '7S'],
-    becky: ['JD', 'QC'],
-    sam: ['AC', 'KH']
-  }
+function process (table, players) {
+  const result = []
 
   parse(table)
-  Object.keys(players).forEach(player => {
-    console.log('checking player', player)
-    parse(players[player])
+  players.forEach(player => {
+    parse(player.cards)
 
     // Generate combinations
-    const combinations = generateCombinations(table, players[player])
+    const combinations = generateCombinations(table, player.cards)
 
     const ranks = combinations.map(h => {
       const hand = sortCards(h)
@@ -125,10 +119,20 @@ function process () {
       return rank
     })
 
-    players[player] = sortRanks(ranks)[0]
+    result.push(Object.assign(
+      {},
+      { name: player.name },
+      sortRanks(ranks)[0]
+    ))
   })
 
-  console.log('players', players)
+  return sortRanks(result)
 }
 
-process()
+const table = ['KS', 'AD', '3H', '7C', 'TD']
+const players = [
+  { name: 'john',  cards: ['9H', '7S'] },
+  { name: 'becky', cards: ['JD', 'QC'] },
+  { name: 'sam',   cards: ['AC', 'KH'] }
+]
+console.log(process(table, players))
