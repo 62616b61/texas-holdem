@@ -5,7 +5,7 @@ const {
   faces,
   suits
 } = require('./other')
-const handChecks = require('./rules')
+const rules = require('./rules')
 
 function validate (face, suit) {
   if (!faces.includes(face) || !suits.includes(suit)) {
@@ -62,8 +62,8 @@ function combinations (table, player) {
 function rank (cards, count) {
   let rank
 
-  handChecks.some(check => {
-    const result = check(cards, count)
+  rules.some(rule => {
+    const result = rule(cards, count)
 
     if (result) {
       rank = result
