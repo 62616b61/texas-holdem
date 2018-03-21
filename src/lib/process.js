@@ -1,10 +1,10 @@
-const handChecks = require('./rules.js')
-const faceToNum = {
-  T: 10,
-  J: 11,
-  Q: 12,
-  K: 13,
-  A: 14
+const { faceToNumber, faces, suits } = require('./other')
+const handChecks = require('./rules')
+
+function validate (face, suit) {
+  if (!faces.includes(face) || !suits.includes(suit)) {
+    throw new Error(`Card ${face}${suit} is invalid`)
+  }
 }
 
 function parse (array) {
@@ -14,8 +14,10 @@ function parse (array) {
     const face = array[i][0]
     const suit = array[i][1]
 
+    validate(face, suit)
+
     result.push({
-      face: parseInt(face) ? parseInt(face) : faceToNum[face],
+      face: parseInt(face) ? parseInt(face) : faceToNumber[face],
       suit
     })
   }

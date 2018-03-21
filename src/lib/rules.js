@@ -1,3 +1,5 @@
+const { handToNumber, suits } = require('./other')
+
 const {
   HIGH_CARD,
   PAIRS,
@@ -8,9 +10,7 @@ const {
   FULL_HOUSE,
   FOUR_OF_A_KIND,
   STRAIGHT_FLUSH,
-} = require('./handCodes.js')
-
-const suits = ['S', 'D', 'H', 'C']
+} = handToNumber
 
 // helpers
 function sameSuit (cards) {
