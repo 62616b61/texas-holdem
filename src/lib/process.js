@@ -1,4 +1,10 @@
-const { faceToNumber, faces, suits } = require('./other')
+const {
+  faceToNum,
+  numToFace,
+  numToHand,
+  faces,
+  suits
+} = require('./other')
 const handChecks = require('./rules')
 
 function validate (face, suit) {
@@ -17,7 +23,7 @@ function parse (array) {
     validate(face, suit)
 
     result.push({
-      face: parseInt(face) ? parseInt(face) : faceToNumber[face],
+      face: parseInt(face) ? parseInt(face) : faceToNum[face],
       suit
     })
   }
@@ -70,10 +76,25 @@ function rank (cards, count) {
   return rank
 }
 
+function output (array) {
+  const result = ''
+
+  return array.map((item, i) => {
+    const {name, combo, result} = item
+    const face = Array.isArray(result) ? result[0] : result
+
+    const winCard = numToFace[face - 3] +
+      (combo === 2 ? ' ' + numToFace[result[1] - 3] : '')
+
+    return `${i + 1} ${name} ${numToHand[combo]} ${winCard}`
+  })
+  .join('\n')
+}
 
 module.exports = {
   parse,
   count,
   combinations,
-  rank
+  rank,
+  output
 }

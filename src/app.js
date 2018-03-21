@@ -1,5 +1,11 @@
 const { sortCards, sortRanks } = require('./lib/sort.js')
-const { parse, count, combinations, rank } = require('./lib/process.js')
+const {
+  parse,
+  count,
+  combinations,
+  rank,
+  output
+} = require('./lib/process.js')
 
 module.exports = (table, players) => {
   const tableParsed = parse(table)
@@ -24,5 +30,5 @@ module.exports = (table, players) => {
     ))
   })
 
-  return sortRanks(result)
+  return output(sortRanks(result))
 }

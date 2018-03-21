@@ -1,16 +1,16 @@
-const { handToNumber, suits } = require('./other')
+const { handToNum, suits } = require('./other')
 
 const {
   HIGH_CARD,
   PAIRS,
-  TWO_PAIRS,
+  TWO_PAIR,
   THREE_OF_A_KIND,
   STRAIGHT,
   FLUSH,
   FULL_HOUSE,
   FOUR_OF_A_KIND,
   STRAIGHT_FLUSH,
-} = handToNumber
+} = handToNum
 
 // helpers
 function sameSuit (cards) {
@@ -114,7 +114,7 @@ function Pairs (cards, count) {
   const pairs = getPairs(count)
 
   return pairs ? {
-    combo: pairs.length === 2 ? TWO_PAIRS : PAIRS,
+    combo: pairs.length === 2 ? TWO_PAIR : PAIRS,
     result: pairs
   } : false
 }
