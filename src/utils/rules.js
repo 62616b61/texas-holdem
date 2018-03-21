@@ -8,7 +8,7 @@ const {
   FULL_HOUSE,
   FOUR_OF_A_KIND,
   STRAIGHT_FLUSH,
-} = require('./utils/handCodes.js')
+} = require('./handCodes.js')
 
 const suits = ['S', 'D', 'H', 'C']
 
