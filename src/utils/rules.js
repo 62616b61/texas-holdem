@@ -36,7 +36,7 @@ function getPairs (count) {
   })
 
   return found.length
-    ? found.sort((a, b) => a + b)
+    ? found.sort((a, b) => b - a)
     : false
 }
 
