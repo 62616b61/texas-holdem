@@ -1,7 +1,7 @@
 module.exports = {
   handToNum: {
     HIGH_CARD:       0,
-    PAIRS:           1,
+    PAIR:            1,
     TWO_PAIR:        2,
     THREE_OF_A_KIND: 3,
     STRAIGHT:        4,

@@ -2,7 +2,7 @@ const { handToNum, suits } = require('./other')
 
 const {
   HIGH_CARD,
-  PAIRS,
+  PAIR,
   TWO_PAIR,
   THREE_OF_A_KIND,
   STRAIGHT,
@@ -114,7 +114,7 @@ function Pairs (cards, count) {
   const pairs = getPairs(count)
 
   return pairs ? {
-    combo: pairs.length === 2 ? TWO_PAIR : PAIRS,
+    combo: pairs.length === 2 ? TWO_PAIR : PAIR,
     result: pairs
   } : false
 }
