@@ -1,13 +1,9 @@
 function sortCards (hand) {
-  return hand.sort((a, b) => {
-    return a.face > b.face
-      ? -1
-      : (b.face > a.face ? 1 : 0)
-  })
+  return hand.sort((a, b) => a.face > b.face ? -1 : (b.face > a.face ? 1 : 0))
 }
 
 function sortRanks (ranks) {
-  const ranksByResult = (a, b) => {
+  const makeDecisionByResult = (a, b) => {
     if (Array.isArray(a)) {
       for (let i = 0; i < a.length; i++) {
         if (a[i] > b[i]) {
@@ -21,7 +17,7 @@ function sortRanks (ranks) {
 
       return 0
     } else {
-      return a > b ? -1 : b > a ? 1 : 0
+      return a > b ? -1 : (b > a ? 1 : 0)
     }
   }
 
@@ -30,7 +26,7 @@ function sortRanks (ranks) {
       ? -1
       : b.combo > a.combo
       ? 1
-      : ranksByResult(a.result, b.result)
+      : makeDecisionByResult(a.result, b.result)
   })
 }
 

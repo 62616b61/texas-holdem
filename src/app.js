@@ -9,7 +9,6 @@ module.exports = (table, players) => {
   }))
 
   const result = []
-
   playersParsed.forEach(player => {
     const ranks = combinations(tableParsed, player.cards).map(hand => {
       const h = sortCards(hand)
