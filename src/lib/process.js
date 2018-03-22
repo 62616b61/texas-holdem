@@ -31,8 +31,8 @@ function parse (array) {
   return result
 }
 
-function count (hand) {
-  return hand.reduce((acc, card) => {
+function count (cards) {
+  return cards.reduce((acc, card) => {
     if (acc[card.face]) {
       acc[card.face]++
     } else {
@@ -77,14 +77,12 @@ function rank (cards, count) {
 }
 
 function output (array) {
-  const result = ''
-
   return array.map((item, i) => {
     const {name, combo, result} = item
     const face = result[0]
 
     const winCard = numToFace[face - 2] +
-      (combo === 2 ? ' ' + numToFace[result[1] - 2] : '')
+      ([2, 6].includes(combo) ? ' ' + numToFace[result[1] - 2] : '')
 
     return `${i + 1} ${name} ${numToHand[combo]} ${winCard}`
   })
