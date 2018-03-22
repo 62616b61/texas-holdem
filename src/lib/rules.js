@@ -27,28 +27,17 @@ function fiveConsecutive (cards) {
   return true
 }
 
-function getPairs (count) {
+function getDuplicates (count, num) {
   const found = []
   Object.keys(count).forEach(face => {
-    if (count[face] === 2) {
+    if (count[face] === num) {
       found.push(parseInt(face))
     }
   })
 
   return found.length
-    ? found.sort((a, b) => b - a)
+    ? found.length > 1 ? found.sort((a, b) => b - a) : found
     : false
-}
-
-function getTriple (count) {
-  let found = null
-  Object.keys(count).forEach(face => {
-    if (count[face] === 3) {
-      found = parseInt(face)
-    }
-  })
-
-  return found ? found : false
 }
 
 function getFaces (cards) {
@@ -66,27 +55,21 @@ function StraightFlush (cards, count) {
 }
 
 function FourOfAKind (cards, count) {
-  let found = null
-  Object.keys(count).some(face => {
-    if (count[face] === 4) {
-      found = face
-      return true
-    }
-  })
+  const quadruple = getDuplicates(count, 4)
 
-  return found ? {
+  return quadruple ? {
     combo: FOUR_OF_A_KIND,
-    result: [parseInt(found)]
+    result: quadruple
   } : false
 }
 
 function FullHouse (cards, count) {
-  const triple = getTriple(count)
-  const pairs = getPairs(count)
+  const triple = getDuplicates(count, 3)
+  const pairs = getDuplicates(count, 2)
 
   return triple && pairs ? {
     combo: FULL_HOUSE,
-    result: [triple, pairs[0]]
+    result: [triple[0], pairs[0]]
   } : false
 }
 
@@ -107,16 +90,16 @@ function Straight (cards, count) {
 }
 
 function ThreeOfAKind (cards, count) {
-  const triple = getTriple(count)
+  const triple = getDuplicates(count, 3)
 
   return triple ? {
     combo: THREE_OF_A_KIND,
-    result: [triple]
+    result: triple
   } : false
 }
 
 function Pairs (cards, count) {
-  const pairs = getPairs(count)
+  const pairs = getDuplicates(count, 2)
 
   return pairs ? {
     combo: pairs.length === 2 ? TWO_PAIR : PAIR,
