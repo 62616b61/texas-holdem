@@ -13,7 +13,8 @@ const cards = []
 
 let firstln = true
 rl.on('line', line => {
-  if (!line) rl.close()
+  if (!line) return
+
   const input = line.trim().split(' ')
 
   try {
@@ -37,5 +38,8 @@ rl.on('line', line => {
     })
   }
 }).on('close', () => {
-  console.log(holdem(table, players))
+  if (table.length && players.length) {
+    console.log(holdem(table, players))
+  }
+  process.exit(0)
 })

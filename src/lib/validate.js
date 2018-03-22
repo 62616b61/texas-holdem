@@ -11,6 +11,10 @@ function validateCard (card) {
 }
 
 function validate (array, cards, firstln) {
+  if (array.length !== (firstln ? 5 : 3)) {
+    throw new Error(`Incorrect number of cards specified`)
+  }
+
   for (let i = firstln ? 0 : 1; i < array.length; i++) {
     const card = array[i]
 
