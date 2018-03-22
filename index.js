@@ -1,5 +1,6 @@
 const readline = require('readline')
 const app = require('./src/app.js')
+const { validate } = require('./src/lib/validate')
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -8,34 +9,33 @@ const rl = readline.createInterface({
 
 const table = []
 const players = []
+const cards = []
 
 let firstln = true
 rl.on('line', line => {
   if (!line) rl.close()
   const input = line.trim().split(' ')
 
+  try {
+    validate(input, cards, firstln)
+  } catch (e) {
+    console.log('Error:', e.message)
+    process.exit(0)
+  }
+
   if (firstln) {
-    if (input.length !== 5) throw new Error('Table is supposed to have 5 cards')
-
-    input.forEach(item => table.push(item))
     firstln = false
+    input.forEach(item => table.push(item))
   } else {
-    if (input.length !== 3) throw new Error('Player is supposed to have 2 cards')
-
     players.push({
       name: input[0],
       cards: [input[1], input[2]]
     })
   }
 
-  rl.prompt()
+  for (let i = firstln ? 0 : 1; i < input.length; i++) {
+    cards.push(input[i])
+  }
 }).on('close', () => {
   console.log(app(table, players))
-  process.exit(0)
-}).on('SIGINT', () => {
-  rl.close()
-  process.exit(0)
 })
-
-rl.setPrompt('')
-rl.prompt()
