@@ -23,7 +23,7 @@ function StraightFlush (cards, count) {
 
   return sameSuit(cards) && fiveConsecutive(cards) ? {
     combo: STRAIGHT_FLUSH,
-    result: getFaces(cards)
+    result: [cards[0].face]
   } : false
 }
 
@@ -58,7 +58,7 @@ function Straight (cards, count) {
 
   return fiveConsecutive(cards) ? {
     combo: STRAIGHT,
-    result: getFaces(cards)
+    result: [cards[0].face]
   } : false
 }
 

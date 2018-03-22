@@ -29,7 +29,7 @@ describe('Rules (card combinations)', () => {
 
       const expected = {
         combo: STRAIGHT_FLUSH,
-        result: [8, 7, 6, 5, 4]
+        result: [8]
       }
 
       expect(rules[0](cards, count(cards))).to.be.deep.equal(expected)
@@ -189,7 +189,7 @@ describe('Rules (card combinations)', () => {
 
       const expected = {
         combo: STRAIGHT,
-        result: [8, 7, 6, 5, 4]
+        result: [8]
       }
 
       expect(rules[4](cards, count(cards))).to.be.deep.equal(expected)

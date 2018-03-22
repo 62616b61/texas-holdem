@@ -27,7 +27,7 @@ describe('identify', () => {
 
     const expected = {
       combo: STRAIGHT_FLUSH,
-      result: [8, 7, 6, 5, 4]
+      result: [8]
     }
 
     expect(identify(cards, count(cards))).to.be.deep.equal(expected)
@@ -95,7 +95,7 @@ describe('identify', () => {
 
     const expected = {
       combo: STRAIGHT,
-      result: [8, 7, 6, 5, 4]
+      result: [8]
     }
 
     expect(identify(cards, count(cards))).to.be.deep.equal(expected)
