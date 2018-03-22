@@ -59,7 +59,7 @@ function combinations (table, player) {
   return hands
 }
 
-function rank (cards, count) {
+function identify (cards, count) {
   let rank
 
   rules.some(rule => {
@@ -93,6 +93,6 @@ module.exports = {
   parse,
   count,
   combinations,
-  rank,
+  identify,
   output
 }

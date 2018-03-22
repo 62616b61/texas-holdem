@@ -3,7 +3,7 @@ const {
   parse,
   count,
   combinations,
-  rank,
+  identify,
   output
 } = require('./lib/process.js')
 
@@ -20,7 +20,7 @@ module.exports = (table, players) => {
       const h = sortCards(hand)
       const c = count(h)
 
-      return rank(h, c)
+      return identify(h, c)
     })
 
     result.push(Object.assign(
