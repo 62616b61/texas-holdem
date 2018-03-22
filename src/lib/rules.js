@@ -75,7 +75,7 @@ function FullHouse (cards, count) {
 
   return triples && pairs ? {
     combo: FULL_HOUSE,
-    result: Object.assign([], triples.result, pairs[0])
+    result: [triples.result[0], pairs[0]]
   } : false
 }
 
