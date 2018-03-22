@@ -4,21 +4,17 @@ function sortCards (hand) {
 
 function sortRanks (ranks) {
   const makeDecisionByResult = (a, b) => {
-    if (Array.isArray(a)) {
-      for (let i = 0; i < a.length; i++) {
-        if (a[i] > b[i]) {
-          return -1
-        } else if (b[i] > a[i]) {
-          return 1
-        } else {
-          continue
-        }
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] > b[i]) {
+        return -1
+      } else if (b[i] > a[i]) {
+        return 1
+      } else {
+        continue
       }
-
-      return 0
-    } else {
-      return a > b ? -1 : (b > a ? 1 : 0)
     }
+
+    return 0
   }
 
   return ranks.sort((a, b) => {

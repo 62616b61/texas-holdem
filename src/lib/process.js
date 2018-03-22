@@ -81,10 +81,10 @@ function output (array) {
 
   return array.map((item, i) => {
     const {name, combo, result} = item
-    const face = Array.isArray(result) ? result[0] : result
+    const face = result[0]
 
-    const winCard = numToFace[face - 3] +
-      (combo === 2 ? ' ' + numToFace[result[1] - 3] : '')
+    const winCard = numToFace[face - 2] +
+      (combo === 2 ? ' ' + numToFace[result[1] - 2] : '')
 
     return `${i + 1} ${name} ${numToHand[combo]} ${winCard}`
   })
