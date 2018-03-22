@@ -31,13 +31,24 @@ function getPairs (count) {
   const found = []
   Object.keys(count).forEach(face => {
     if (count[face] === 2) {
-      found.push(face)
+      found.push(parseInt(face))
     }
   })
 
   return found.length
     ? found.sort((a, b) => b - a)
     : false
+}
+
+function getTriple (count) {
+  let found = null
+  Object.keys(count).forEach(face => {
+    if (count[face] === 3) {
+      found = parseInt(face)
+    }
+  })
+
+  return found ? found : false
 }
 
 function getFaces (cards) {
@@ -65,17 +76,17 @@ function FourOfAKind (cards, count) {
 
   return found ? {
     combo: FOUR_OF_A_KIND,
-    result: found
+    result: [parseInt(found)]
   } : false
 }
 
 function FullHouse (cards, count) {
-  const triples = ThreeOfAKind(cards, count)
+  const triple = getTriple(count)
   const pairs = getPairs(count)
 
-  return triples && pairs ? {
+  return triple && pairs ? {
     combo: FULL_HOUSE,
-    result: [triples.result[0], pairs[0]]
+    result: [triple, pairs[0]]
   } : false
 }
 
@@ -96,17 +107,11 @@ function Straight (cards, count) {
 }
 
 function ThreeOfAKind (cards, count) {
-  let found = null
-  Object.keys(count).some(face => {
-    if (count[face] === 3) {
-      found = face
-      return true
-    }
-  })
+  const triple = getTriple(count)
 
-  return found ? {
+  return triple ? {
     combo: THREE_OF_A_KIND,
-    result: found
+    result: [triple]
   } : false
 }
 
@@ -122,7 +127,7 @@ function Pairs (cards, count) {
 function HighCard (cards) {
   return {
     combo: HIGH_CARD,
-    result: cards[0].face
+    result: [cards[0].face]
   }
 }
 
