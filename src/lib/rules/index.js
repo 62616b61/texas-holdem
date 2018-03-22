@@ -83,7 +83,7 @@ function Pairs (cards, count) {
 function HighCard (cards) {
   return {
     combo: HIGH_CARD,
-    result: [cards[0].face]
+    result: getFaces(cards)
   }
 }
 

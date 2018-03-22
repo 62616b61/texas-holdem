@@ -163,7 +163,7 @@ describe('identify', () => {
 
     const expected = {
       combo: HIGH_CARD,
-      result: [14]
+      result: [14, 12, 10, 8, 6]
     }
 
     expect(identify(cards, count(cards))).to.be.deep.equal(expected)
