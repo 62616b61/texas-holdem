@@ -40,6 +40,7 @@ module.exports = {
     'Seven',
     'Eight',
     'Nine',
+    'Ten',
     'Jack',
     'Queen',
     'King',
