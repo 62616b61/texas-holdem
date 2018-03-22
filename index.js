@@ -23,6 +23,10 @@ rl.on('line', line => {
     process.exit(0)
   }
 
+  for (let i = firstln ? 0 : 1; i < input.length; i++) {
+    cards.push(input[i])
+  }
+
   if (firstln) {
     firstln = false
     input.forEach(item => table.push(item))
@@ -31,10 +35,6 @@ rl.on('line', line => {
       name: input[0],
       cards: [input[1], input[2]]
     })
-  }
-
-  for (let i = firstln ? 0 : 1; i < input.length; i++) {
-    cards.push(input[i])
   }
 }).on('close', () => {
   console.log(app(table, players))
