@@ -1,5 +1,5 @@
 const readline = require('readline')
-const app = require('./src/app.js')
+const holdem = require('./src/app.js')
 const { validate } = require('./src/lib/validate')
 
 const rl = readline.createInterface({
@@ -37,5 +37,5 @@ rl.on('line', line => {
     })
   }
 }).on('close', () => {
-  console.log(app(table, players))
+  console.log(holdem(table, players))
 })
