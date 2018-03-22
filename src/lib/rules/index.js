@@ -3,6 +3,7 @@ const {
   sameSuit,
   fiveConsecutive,
   getDuplicates,
+  getKickers,
   getFaces
 } = require('./helpers')
 
@@ -32,7 +33,7 @@ function FourOfAKind (cards, count) {
 
   return quadruple ? {
     combo: FOUR_OF_A_KIND,
-    result: quadruple
+    result: quadruple.concat(getKickers(cards, quadruple))
   } : false
 }
 
@@ -67,7 +68,7 @@ function ThreeOfAKind (cards, count) {
 
   return triple ? {
     combo: THREE_OF_A_KIND,
-    result: triple
+    result: triple.concat(getKickers(cards, triple))
   } : false
 }
 
@@ -76,7 +77,7 @@ function Pairs (cards, count) {
 
   return pairs ? {
     combo: pairs.length === 2 ? TWO_PAIR : PAIR,
-    result: pairs
+    result: pairs.concat(getKickers(cards, pairs))
   } : false
 }
 

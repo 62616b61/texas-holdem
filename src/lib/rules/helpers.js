@@ -27,6 +27,10 @@ function getDuplicates (count, num) {
     : false
 }
 
+function getKickers (cards, duplicates) {
+  return getFaces(cards.filter(card => !duplicates.includes(card.face)))
+}
+
 function getFaces (cards) {
   return cards.map(card => card.face)
 }
@@ -35,5 +39,6 @@ module.exports = {
   sameSuit,
   fiveConsecutive,
   getDuplicates,
+  getKickers,
   getFaces
 }

@@ -76,7 +76,7 @@ describe('Rules (card combinations)', () => {
 
       const expected = {
         combo: FOUR_OF_A_KIND,
-        result: [8]
+        result: [8, 2]
       }
 
       expect(rules[1](cards, count(cards))).to.be.deep.equal(expected)
@@ -236,7 +236,7 @@ describe('Rules (card combinations)', () => {
 
       const expected = {
         combo: THREE_OF_A_KIND,
-        result: [8]
+        result: [8, 5, 2]
       }
 
       expect(rules[5](cards, count(cards))).to.be.deep.equal(expected)
@@ -269,7 +269,7 @@ describe('Rules (card combinations)', () => {
 
       const expected = {
         combo: PAIR,
-        result: [5]
+        result: [5, 9, 8, 2]
       }
 
       expect(rules[6](cards, count(cards))).to.be.deep.equal(expected)
@@ -286,7 +286,7 @@ describe('Rules (card combinations)', () => {
 
       const expected = {
         combo: TWO_PAIR,
-        result: [8, 5]
+        result: [8, 5, 2]
       }
 
       expect(rules[6](cards, count(cards))).to.be.deep.equal(expected)

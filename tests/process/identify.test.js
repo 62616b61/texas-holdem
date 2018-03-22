@@ -44,7 +44,7 @@ describe('identify', () => {
 
     const expected = {
       combo: FOUR_OF_A_KIND,
-      result: [8]
+      result: [8, 2]
     }
 
     expect(identify(cards, count(cards))).to.be.deep.equal(expected)
@@ -112,7 +112,7 @@ describe('identify', () => {
 
     const expected = {
       combo: THREE_OF_A_KIND,
-      result: [8]
+      result: [8, 5, 2]
     }
 
     expect(identify(cards, count(cards))).to.be.deep.equal(expected)
@@ -129,7 +129,7 @@ describe('identify', () => {
 
     const expected = {
       combo: TWO_PAIR,
-      result: [8, 5]
+      result: [8, 5, 2]
     }
 
     expect(identify(cards, count(cards))).to.be.deep.equal(expected)
@@ -146,7 +146,7 @@ describe('identify', () => {
 
     const expected = {
       combo: PAIR,
-      result: [5]
+      result: [5, 9, 8, 2]
     }
 
     expect(identify(cards, count(cards))).to.be.deep.equal(expected)

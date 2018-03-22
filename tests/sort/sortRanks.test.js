@@ -46,21 +46,23 @@ describe('sortRanks', () => {
 
   it('sorts High Card ranks by result in descending order', () => {
     const ranks = [
-      { combo: HIGH_CARD, result: [13] },
-      { combo: HIGH_CARD, result: [3] },
-      { combo: HIGH_CARD, result: [5] },
-      { combo: HIGH_CARD, result: [8] },
-      { combo: HIGH_CARD, result: [14] },
-      { combo: HIGH_CARD, result: [2] }
+      { combo: HIGH_CARD, result: [8, 5, 2, 2, 2] },
+      { combo: HIGH_CARD, result: [13, 12, 11, 8, 2] },
+      { combo: HIGH_CARD, result: [14, 13, 12, 11, 10] },
+      { combo: HIGH_CARD, result: [8, 5, 3, 2, 2] },
+      { combo: HIGH_CARD, result: [14, 13, 12, 11, 8] },
+      { combo: HIGH_CARD, result: [13, 12, 11, 9, 2] },
+      { combo: HIGH_CARD, result: [14, 13, 12, 11, 9] }
     ]
 
     const expected = [
-      { combo: HIGH_CARD, result: [14] },
-      { combo: HIGH_CARD, result: [13] },
-      { combo: HIGH_CARD, result: [8] },
-      { combo: HIGH_CARD, result: [5] },
-      { combo: HIGH_CARD, result: [3] },
-      { combo: HIGH_CARD, result: [2] }
+      { combo: HIGH_CARD, result: [14, 13, 12, 11, 10] },
+      { combo: HIGH_CARD, result: [14, 13, 12, 11, 9] },
+      { combo: HIGH_CARD, result: [14, 13, 12, 11, 8] },
+      { combo: HIGH_CARD, result: [13, 12, 11, 9, 2] },
+      { combo: HIGH_CARD, result: [13, 12, 11, 8, 2] },
+      { combo: HIGH_CARD, result: [8, 5, 3, 2, 2] },
+      { combo: HIGH_CARD, result: [8, 5, 2, 2, 2] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
@@ -68,21 +70,21 @@ describe('sortRanks', () => {
 
   it('sorts Pair ranks by result in descending order', () => {
     const ranks = [
-      { combo: PAIR, result: [13] },
-      { combo: PAIR, result: [3] },
-      { combo: PAIR, result: [5] },
-      { combo: PAIR, result: [8] },
-      { combo: PAIR, result: [14] },
-      { combo: PAIR, result: [2] }
+      { combo: PAIR, result: [14, 11, 10, 7] },
+      { combo: PAIR, result: [8, 5, 4, 2] },
+      { combo: PAIR, result: [14, 11, 10, 8] },
+      { combo: PAIR, result: [14, 12, 11, 10] },
+      { combo: PAIR, result: [8, 5, 3, 2] },
+      { combo: PAIR, result: [14, 12, 11, 9] }
     ]
 
     const expected = [
-      { combo: PAIR, result: [14] },
-      { combo: PAIR, result: [13] },
-      { combo: PAIR, result: [8] },
-      { combo: PAIR, result: [5] },
-      { combo: PAIR, result: [3] },
-      { combo: PAIR, result: [2] }
+      { combo: PAIR, result: [14, 12, 11, 10] },
+      { combo: PAIR, result: [14, 12, 11, 9] },
+      { combo: PAIR, result: [14, 11, 10, 8] },
+      { combo: PAIR, result: [14, 11, 10, 7] },
+      { combo: PAIR, result: [8, 5, 4, 2] },
+      { combo: PAIR, result: [8, 5, 3, 2] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
@@ -90,21 +92,21 @@ describe('sortRanks', () => {
 
   it('sorts Two Pair ranks by result in descending order', () => {
     const ranks = [
-      { combo: TWO_PAIR, result: [13, 9] },
-      { combo: TWO_PAIR, result: [14, 8] },
-      { combo: TWO_PAIR, result: [14, 13] },
-      { combo: TWO_PAIR, result: [7, 5] },
-      { combo: TWO_PAIR, result: [13, 10] },
-      { combo: TWO_PAIR, result: [8, 2] }
+      { combo: TWO_PAIR, result: [13, 10, 7] },
+      { combo: TWO_PAIR, result: [14, 13, 9] },
+      { combo: TWO_PAIR, result: [8, 4, 1] },
+      { combo: TWO_PAIR, result: [13, 10, 9] },
+      { combo: TWO_PAIR, result: [8, 5, 3] },
+      { combo: TWO_PAIR, result: [14, 13, 10] }
     ]
 
     const expected = [
-      { combo: TWO_PAIR, result: [14, 13] },
-      { combo: TWO_PAIR, result: [14, 8] },
-      { combo: TWO_PAIR, result: [13, 10] },
-      { combo: TWO_PAIR, result: [13, 9] },
-      { combo: TWO_PAIR, result: [8, 2] },
-      { combo: TWO_PAIR, result: [7, 5] }
+      { combo: TWO_PAIR, result: [14, 13, 10] },
+      { combo: TWO_PAIR, result: [14, 13, 9] },
+      { combo: TWO_PAIR, result: [13, 10, 9] },
+      { combo: TWO_PAIR, result: [13, 10, 7] },
+      { combo: TWO_PAIR, result: [8, 5, 3] },
+      { combo: TWO_PAIR, result: [8, 4, 1] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
