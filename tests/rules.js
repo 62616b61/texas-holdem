@@ -311,10 +311,10 @@ describe('Rules (card combinations)', () => {
     it('should get first card from an array of sorted cards', () => {
       const cards = [
         { face: 14, suit: 'S'},
-        { face: 13, suit: 'S'},
-        { face: 12, suit: 'S'},
-        { face: 11, suit: 'S'},
+        { face: 12, suit: 'H'},
         { face: 10, suit: 'S'},
+        { face: 8, suit: 'C'},
+        { face: 6, suit: 'S'},
       ]
 
       const expected = {
