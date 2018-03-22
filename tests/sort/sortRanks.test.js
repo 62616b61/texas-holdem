@@ -255,10 +255,4 @@ describe('sortRanks', () => {
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
-
-
-
-
-
-
 })
