@@ -5,7 +5,7 @@ const {
   combinations,
   identify,
   output
-} = require('./lib/process.js')
+} = require('./lib/process')
 
 module.exports = (table, players) => {
   const tableParsed = parse(table)
