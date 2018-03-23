@@ -111,7 +111,6 @@ describe('output', () => {
   })
 
   it('produces output for two players with kickers', () => {
-
     const combos = [
       [
         { name: 'Jasmine', rule: 0, combo: [11], kickers: [10, 9, 8, 6] },
@@ -221,5 +220,4 @@ describe('output', () => {
       expect(output(r)).to.be.equal(expected[i])
     })
   })
-
 })

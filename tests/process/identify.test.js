@@ -177,5 +177,4 @@ describe('identify', () => {
 
     expect(identify(cards, count(cards))).to.be.deep.equal(expected)
   })
-
 })

@@ -4,7 +4,6 @@ const { count } = require('../../src/lib/process')
 
 describe('count', () => {
   it('count cards', () => {
-
     const players = [
       [
         { face: 2, suit: 'S'},

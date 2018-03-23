@@ -4,7 +4,6 @@ const { sortCards } = require('../../src/lib/sort')
 
 describe('sortCards', () => {
   it('sorts cards by face in descending order', () => {
-
     const cards = [
       { face: 7, suit: 'S'},
       { face: 5, suit: 'H'},
