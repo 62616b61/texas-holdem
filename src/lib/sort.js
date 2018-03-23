@@ -3,11 +3,14 @@ function sortCards (hand) {
 }
 
 function sortRanks (ranks) {
-  const makeDecisionByResult = (a, b) => {
-    for (let i = 0; i < a.length; i++) {
-      if (a[i] > b[i]) {
+  return ranks.sort((a, b) => {
+    const cA = [a.rule].concat(a.combo).concat(a.kickers)
+    const cB = [b.rule].concat(b.combo).concat(b.kickers)
+
+    for (let i = 0; i < cA.length; i++) {
+      if (cA[i] > cB[i]) {
         return -1
-      } else if (b[i] > a[i]) {
+      } else if (cB[i] > cA[i]) {
         return 1
       } else {
         continue
@@ -15,14 +18,6 @@ function sortRanks (ranks) {
     }
 
     return 0
-  }
-
-  return ranks.sort((a, b) => {
-    return a.combo > b.combo
-      ? -1
-      : b.combo > a.combo
-      ? 1
-      : makeDecisionByResult(a.result, b.result)
   })
 }
 

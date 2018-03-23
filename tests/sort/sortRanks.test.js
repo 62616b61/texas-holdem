@@ -16,243 +16,245 @@ const {
 const { sortRanks } = require('../../src/lib/sort')
 
 describe('sortRanks', () => {
-  it('sorts ranks by combo in descending order', () => {
+  it('sorts ranks by rule in descending order', () => {
     const ranks = [
-      { combo: FLUSH },
-      { combo: STRAIGHT },
-      { combo: THREE_OF_A_KIND },
-      { combo: HIGH_CARD },
-      { combo: TWO_PAIR },
-      { combo: FULL_HOUSE },
-      { combo: STRAIGHT_FLUSH },
-      { combo: FOUR_OF_A_KIND },
-      { combo: PAIR }
+      { rule: FLUSH },
+      { rule: STRAIGHT },
+      { rule: THREE_OF_A_KIND },
+      { rule: HIGH_CARD },
+      { rule: TWO_PAIR },
+      { rule: FULL_HOUSE },
+      { rule: STRAIGHT_FLUSH },
+      { rule: FOUR_OF_A_KIND },
+      { rule: PAIR }
     ]
 
     const expected = [
-      { combo: STRAIGHT_FLUSH },
-      { combo: FOUR_OF_A_KIND },
-      { combo: FULL_HOUSE },
-      { combo: FLUSH },
-      { combo: STRAIGHT },
-      { combo: THREE_OF_A_KIND },
-      { combo: TWO_PAIR },
-      { combo: PAIR },
-      { combo: HIGH_CARD }
+      { rule: STRAIGHT_FLUSH },
+      { rule: FOUR_OF_A_KIND },
+      { rule: FULL_HOUSE },
+      { rule: FLUSH },
+      { rule: STRAIGHT },
+      { rule: THREE_OF_A_KIND },
+      { rule: TWO_PAIR },
+      { rule: PAIR },
+      { rule: HIGH_CARD }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts High Card ranks by result in descending order', () => {
+  it('sorts High Card ranks by combo in descending order', () => {
     const ranks = [
-      { combo: HIGH_CARD, result: [8, 5, 2, 2, 2] },
-      { combo: HIGH_CARD, result: [13, 12, 11, 8, 2] },
-      { combo: HIGH_CARD, result: [14, 13, 12, 11, 10] },
-      { combo: HIGH_CARD, result: [8, 5, 3, 2, 2] },
-      { combo: HIGH_CARD, result: [14, 13, 12, 11, 8] },
-      { combo: HIGH_CARD, result: [13, 12, 11, 9, 2] },
-      { combo: HIGH_CARD, result: [14, 13, 12, 11, 9] }
+      { rule: HIGH_CARD, combo: [8], kickers: [5, 2, 2, 2] },
+      { rule: HIGH_CARD, combo: [13], kickers: [12, 11, 8, 2] },
+      { rule: HIGH_CARD, combo: [14], kickers: [13, 12, 11, 10] },
+      { rule: HIGH_CARD, combo: [8], kickers: [5, 3, 2, 2] },
+      { rule: HIGH_CARD, combo: [14], kickers: [13, 12, 11, 8] },
+      { rule: HIGH_CARD, combo: [13], kickers: [12, 11, 9, 2] },
+      { rule: HIGH_CARD, combo: [14], kickers: [13, 12, 11, 9] }
     ]
 
     const expected = [
-      { combo: HIGH_CARD, result: [14, 13, 12, 11, 10] },
-      { combo: HIGH_CARD, result: [14, 13, 12, 11, 9] },
-      { combo: HIGH_CARD, result: [14, 13, 12, 11, 8] },
-      { combo: HIGH_CARD, result: [13, 12, 11, 9, 2] },
-      { combo: HIGH_CARD, result: [13, 12, 11, 8, 2] },
-      { combo: HIGH_CARD, result: [8, 5, 3, 2, 2] },
-      { combo: HIGH_CARD, result: [8, 5, 2, 2, 2] }
+      { rule: HIGH_CARD, combo: [14], kickers: [13, 12, 11, 10] },
+      { rule: HIGH_CARD, combo: [14], kickers: [13, 12, 11, 9] },
+      { rule: HIGH_CARD, combo: [14], kickers: [13, 12, 11, 8] },
+      { rule: HIGH_CARD, combo: [13], kickers: [12, 11, 9, 2] },
+      { rule: HIGH_CARD, combo: [13], kickers: [12, 11, 8, 2] },
+      { rule: HIGH_CARD, combo: [8], kickers: [5, 3, 2, 2] },
+      { rule: HIGH_CARD, combo: [8], kickers: [5, 2, 2, 2] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts Pair ranks by result in descending order', () => {
+  it('sorts Pair ranks by combo in descending order', () => {
     const ranks = [
-      { combo: PAIR, result: [14, 11, 10, 7] },
-      { combo: PAIR, result: [8, 5, 4, 2] },
-      { combo: PAIR, result: [14, 11, 10, 8] },
-      { combo: PAIR, result: [14, 12, 11, 10] },
-      { combo: PAIR, result: [8, 5, 3, 2] },
-      { combo: PAIR, result: [14, 12, 11, 9] }
+      { rule: PAIR, combo: [14], kickers: [11, 10, 7] },
+      { rule: PAIR, combo: [8], kickers: [5, 4, 2] },
+      { rule: PAIR, combo: [14], kickers: [11, 10, 8] },
+      { rule: PAIR, combo: [14], kickers: [12, 11, 10] },
+      { rule: PAIR, combo: [8], kickers: [5, 3, 2] },
+      { rule: PAIR, combo: [14], kickers: [12, 11, 9] }
     ]
 
     const expected = [
-      { combo: PAIR, result: [14, 12, 11, 10] },
-      { combo: PAIR, result: [14, 12, 11, 9] },
-      { combo: PAIR, result: [14, 11, 10, 8] },
-      { combo: PAIR, result: [14, 11, 10, 7] },
-      { combo: PAIR, result: [8, 5, 4, 2] },
-      { combo: PAIR, result: [8, 5, 3, 2] }
+      { rule: PAIR, combo: [14], kickers: [12, 11, 10] },
+      { rule: PAIR, combo: [14], kickers: [12, 11, 9] },
+      { rule: PAIR, combo: [14], kickers: [11, 10, 8] },
+      { rule: PAIR, combo: [14], kickers: [11, 10, 7] },
+      { rule: PAIR, combo: [8], kickers: [5, 4, 2] },
+      { rule: PAIR, combo: [8], kickers: [5, 3, 2] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts Two Pair ranks by result in descending order', () => {
+  it('sorts Two Pair ranks by combo in descending order', () => {
     const ranks = [
-      { combo: TWO_PAIR, result: [13, 10, 7] },
-      { combo: TWO_PAIR, result: [14, 13, 9] },
-      { combo: TWO_PAIR, result: [8, 4, 1] },
-      { combo: TWO_PAIR, result: [13, 10, 9] },
-      { combo: TWO_PAIR, result: [8, 5, 3] },
-      { combo: TWO_PAIR, result: [14, 13, 10] }
+      { rule: TWO_PAIR, combo: [13, 10], kickers: [7] },
+      { rule: TWO_PAIR, combo: [14, 13], kickers: [9] },
+      { rule: TWO_PAIR, combo: [8, 4], kickers: [1] },
+      { rule: TWO_PAIR, combo: [13, 10], kickers: [9] },
+      { rule: TWO_PAIR, combo: [8, 5], kickers: [3] },
+      { rule: TWO_PAIR, combo: [14, 13], kickers: [10] }
     ]
 
     const expected = [
-      { combo: TWO_PAIR, result: [14, 13, 10] },
-      { combo: TWO_PAIR, result: [14, 13, 9] },
-      { combo: TWO_PAIR, result: [13, 10, 9] },
-      { combo: TWO_PAIR, result: [13, 10, 7] },
-      { combo: TWO_PAIR, result: [8, 5, 3] },
-      { combo: TWO_PAIR, result: [8, 4, 1] }
+      { rule: TWO_PAIR, combo: [14, 13], kickers: [10] },
+      { rule: TWO_PAIR, combo: [14, 13], kickers: [9] },
+      { rule: TWO_PAIR, combo: [13, 10], kickers: [9] },
+      { rule: TWO_PAIR, combo: [13, 10], kickers: [7] },
+      { rule: TWO_PAIR, combo: [8, 5], kickers: [3] },
+      { rule: TWO_PAIR, combo: [8, 4], kickers: [1] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts Three of a Kind ranks by result in descending order', () => {
+  it('sorts Three of a Kind ranks by combo in descending order', () => {
     const ranks = [
-      { combo: THREE_OF_A_KIND, result: [13] },
-      { combo: THREE_OF_A_KIND, result: [14] },
-      { combo: THREE_OF_A_KIND, result: [12] },
-      { combo: THREE_OF_A_KIND, result: [7] },
-      { combo: THREE_OF_A_KIND, result: [10] },
-      { combo: THREE_OF_A_KIND, result: [8] }
+      { rule: THREE_OF_A_KIND, combo: [8], kickers: [7, 3] },
+      { rule: THREE_OF_A_KIND, combo: [7], kickers: [10, 9] },
+      { rule: THREE_OF_A_KIND, combo: [14], kickers: [13, 12] },
+      { rule: THREE_OF_A_KIND, combo: [7], kickers: [9, 8] },
+      { rule: THREE_OF_A_KIND, combo: [14], kickers: [13, 11] },
+      { rule: THREE_OF_A_KIND, combo: [10], kickers: [8, 5] },
+      { rule: THREE_OF_A_KIND, combo: [10], kickers: [8, 5] }
     ]
 
     const expected = [
-      { combo: THREE_OF_A_KIND, result: [14] },
-      { combo: THREE_OF_A_KIND, result: [13] },
-      { combo: THREE_OF_A_KIND, result: [12] },
-      { combo: THREE_OF_A_KIND, result: [10] },
-      { combo: THREE_OF_A_KIND, result: [8] },
-      { combo: THREE_OF_A_KIND, result: [7] }
+      { rule: THREE_OF_A_KIND, combo: [14], kickers: [13, 12] },
+      { rule: THREE_OF_A_KIND, combo: [14], kickers: [13, 11] },
+      { rule: THREE_OF_A_KIND, combo: [10], kickers: [8, 5] },
+      { rule: THREE_OF_A_KIND, combo: [10], kickers: [8, 5] },
+      { rule: THREE_OF_A_KIND, combo: [8], kickers: [7, 3] },
+      { rule: THREE_OF_A_KIND, combo: [7], kickers: [10, 9] },
+      { rule: THREE_OF_A_KIND, combo: [7], kickers: [9, 8] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts Straight ranks by result in descending order', () => {
+  it('sorts Straight ranks by combo in descending order', () => {
     const ranks = [
-      { combo: STRAIGHT, result: [11] },
-      { combo: STRAIGHT, result: [9] },
-      { combo: STRAIGHT, result: [10] },
-      { combo: STRAIGHT, result: [12] },
-      { combo: STRAIGHT, result: [14] },
-      { combo: STRAIGHT, result: [13] },
-      { combo: STRAIGHT, result: [7] },
-      { combo: STRAIGHT, result: [8] }
+      { rule: STRAIGHT, combo: [11], kickers: [] },
+      { rule: STRAIGHT, combo: [9], kickers: [] },
+      { rule: STRAIGHT, combo: [10], kickers: [] },
+      { rule: STRAIGHT, combo: [12], kickers: [] },
+      { rule: STRAIGHT, combo: [14], kickers: [] },
+      { rule: STRAIGHT, combo: [13], kickers: [] },
+      { rule: STRAIGHT, combo: [7], kickers: [] },
+      { rule: STRAIGHT, combo: [8], kickers: [] }
     ]
 
     const expected = [
-      { combo: STRAIGHT, result: [14] },
-      { combo: STRAIGHT, result: [13] },
-      { combo: STRAIGHT, result: [12] },
-      { combo: STRAIGHT, result: [11] },
-      { combo: STRAIGHT, result: [10] },
-      { combo: STRAIGHT, result: [9] },
-      { combo: STRAIGHT, result: [8] },
-      { combo: STRAIGHT, result: [7] }
+      { rule: STRAIGHT, combo: [14], kickers: [] },
+      { rule: STRAIGHT, combo: [13], kickers: [] },
+      { rule: STRAIGHT, combo: [12], kickers: [] },
+      { rule: STRAIGHT, combo: [11], kickers: [] },
+      { rule: STRAIGHT, combo: [10], kickers: [] },
+      { rule: STRAIGHT, combo: [9], kickers: [] },
+      { rule: STRAIGHT, combo: [8], kickers: [] },
+      { rule: STRAIGHT, combo: [7], kickers: [] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts Flush ranks by result in descending order', () => {
+  it('sorts Flush ranks by combo in descending order', () => {
     const ranks = [
-      { combo: FLUSH, result: [8, 5, 2, 2, 2] },
-      { combo: FLUSH, result: [13, 12, 11, 8, 2] },
-      { combo: FLUSH, result: [14, 13, 12, 11, 10] },
-      { combo: FLUSH, result: [8, 5, 3, 2, 2] },
-      { combo: FLUSH, result: [14, 13, 12, 11, 8] },
-      { combo: FLUSH, result: [13, 12, 11, 9, 2] },
-      { combo: FLUSH, result: [14, 13, 12, 11, 9] }
+      { rule: FLUSH, combo: [8], kickers: [5, 2, 2, 2] },
+      { rule: FLUSH, combo: [13], kickers: [12, 11, 8, 2] },
+      { rule: FLUSH, combo: [14], kickers: [13, 12, 11, 10] },
+      { rule: FLUSH, combo: [8], kickers: [5, 3, 2, 2] },
+      { rule: FLUSH, combo: [14], kickers: [13, 12, 11, 8] },
+      { rule: FLUSH, combo: [13], kickers: [12, 11, 9, 2] },
+      { rule: FLUSH, combo: [14], kickers: [13, 12, 11, 9] }
     ]
 
     const expected = [
-      { combo: FLUSH, result: [14, 13, 12, 11, 10] },
-      { combo: FLUSH, result: [14, 13, 12, 11, 9] },
-      { combo: FLUSH, result: [14, 13, 12, 11, 8] },
-      { combo: FLUSH, result: [13, 12, 11, 9, 2] },
-      { combo: FLUSH, result: [13, 12, 11, 8, 2] },
-      { combo: FLUSH, result: [8, 5, 3, 2, 2] },
-      { combo: FLUSH, result: [8, 5, 2, 2, 2] }
+      { rule: FLUSH, combo: [14], kickers: [13, 12, 11, 10] },
+      { rule: FLUSH, combo: [14], kickers: [13, 12, 11, 9] },
+      { rule: FLUSH, combo: [14], kickers: [13, 12, 11, 8] },
+      { rule: FLUSH, combo: [13], kickers: [12, 11, 9, 2] },
+      { rule: FLUSH, combo: [13], kickers: [12, 11, 8, 2] },
+      { rule: FLUSH, combo: [8], kickers: [5, 3, 2, 2] },
+      { rule: FLUSH, combo: [8], kickers: [5, 2, 2, 2] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts Full House ranks by result in descending order', () => {
+  it('sorts Full House ranks by combo in descending order', () => {
     const ranks = [
-      { combo: FULL_HOUSE, result: [7, 6] },
-      { combo: FULL_HOUSE, result: [3, 2] },
-      { combo: FULL_HOUSE, result: [9, 9] },
-      { combo: FULL_HOUSE, result: [14, 13] },
-      { combo: FULL_HOUSE, result: [7, 3] },
-      { combo: FULL_HOUSE, result: [14, 9] }
+      { rule: FULL_HOUSE, combo: [7, 6], kickers: [] },
+      { rule: FULL_HOUSE, combo: [3, 2], kickers: [] },
+      { rule: FULL_HOUSE, combo: [9, 9], kickers: [] },
+      { rule: FULL_HOUSE, combo: [14, 13], kickers: [] },
+      { rule: FULL_HOUSE, combo: [7, 3], kickers: [] },
+      { rule: FULL_HOUSE, combo: [14, 9], kickers: [] }
     ]
 
     const expected = [
-      { combo: FULL_HOUSE, result: [14, 13] },
-      { combo: FULL_HOUSE, result: [14, 9] },
-      { combo: FULL_HOUSE, result: [9, 9] },
-      { combo: FULL_HOUSE, result: [7, 6] },
-      { combo: FULL_HOUSE, result: [7, 3] },
-      { combo: FULL_HOUSE, result: [3, 2] }
+      { rule: FULL_HOUSE, combo: [14, 13], kickers: [] },
+      { rule: FULL_HOUSE, combo: [14, 9], kickers: [] },
+      { rule: FULL_HOUSE, combo: [9, 9], kickers: [] },
+      { rule: FULL_HOUSE, combo: [7, 6], kickers: [] },
+      { rule: FULL_HOUSE, combo: [7, 3], kickers: [] },
+      { rule: FULL_HOUSE, combo: [3, 2], kickers: [] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts Four of a Kind ranks by result in descending order', () => {
+  it('sorts Four of a Kind ranks by combo in descending order', () => {
     const ranks = [
-      { combo: FOUR_OF_A_KIND, result: [11] },
-      { combo: FOUR_OF_A_KIND, result: [9] },
-      { combo: FOUR_OF_A_KIND, result: [10] },
-      { combo: FOUR_OF_A_KIND, result: [12] },
-      { combo: FOUR_OF_A_KIND, result: [14] },
-      { combo: FOUR_OF_A_KIND, result: [13] },
-      { combo: FOUR_OF_A_KIND, result: [7] },
-      { combo: FOUR_OF_A_KIND, result: [8] }
+      { rule: FOUR_OF_A_KIND, combo: [10], kickers: [14] },
+      { rule: FOUR_OF_A_KIND, combo: [9], kickers: [11] },
+      { rule: FOUR_OF_A_KIND, combo: [14], kickers: [12] },
+      { rule: FOUR_OF_A_KIND, combo: [14], kickers: [13] },
+      { rule: FOUR_OF_A_KIND, combo: [7], kickers: [6] },
+      { rule: FOUR_OF_A_KIND, combo: [10], kickers: [11] },
+      { rule: FOUR_OF_A_KIND, combo: [7], kickers: [2] },
+      { rule: FOUR_OF_A_KIND, combo: [10], kickers: [10] }
     ]
 
     const expected = [
-      { combo: FOUR_OF_A_KIND, result: [14] },
-      { combo: FOUR_OF_A_KIND, result: [13] },
-      { combo: FOUR_OF_A_KIND, result: [12] },
-      { combo: FOUR_OF_A_KIND, result: [11] },
-      { combo: FOUR_OF_A_KIND, result: [10] },
-      { combo: FOUR_OF_A_KIND, result: [9] },
-      { combo: FOUR_OF_A_KIND, result: [8] },
-      { combo: FOUR_OF_A_KIND, result: [7] }
+      { rule: FOUR_OF_A_KIND, combo: [14], kickers: [13] },
+      { rule: FOUR_OF_A_KIND, combo: [14], kickers: [12] },
+      { rule: FOUR_OF_A_KIND, combo: [10], kickers: [14] },
+      { rule: FOUR_OF_A_KIND, combo: [10], kickers: [11] },
+      { rule: FOUR_OF_A_KIND, combo: [10], kickers: [10] },
+      { rule: FOUR_OF_A_KIND, combo: [9], kickers: [11] },
+      { rule: FOUR_OF_A_KIND, combo: [7], kickers: [6] },
+      { rule: FOUR_OF_A_KIND, combo: [7], kickers: [2] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
   })
 
-  it('sorts Straight Flush ranks by result in descending order', () => {
+  it('sorts Straight Flush ranks by combo in descending order', () => {
     const ranks = [
-      { combo: STRAIGHT_FLUSH, result: [11] },
-      { combo: STRAIGHT_FLUSH, result: [9] },
-      { combo: STRAIGHT_FLUSH, result: [10] },
-      { combo: STRAIGHT_FLUSH, result: [12] },
-      { combo: STRAIGHT_FLUSH, result: [14] },
-      { combo: STRAIGHT_FLUSH, result: [13] },
-      { combo: STRAIGHT_FLUSH, result: [7] },
-      { combo: STRAIGHT_FLUSH, result: [8] }
+      { rule: STRAIGHT_FLUSH, combo: [11], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [9], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [10], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [12], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [14], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [13], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [7], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [8], kickers: [] }
     ]
 
     const expected = [
-      { combo: STRAIGHT_FLUSH, result: [14] },
-      { combo: STRAIGHT_FLUSH, result: [13] },
-      { combo: STRAIGHT_FLUSH, result: [12] },
-      { combo: STRAIGHT_FLUSH, result: [11] },
-      { combo: STRAIGHT_FLUSH, result: [10] },
-      { combo: STRAIGHT_FLUSH, result: [9] },
-      { combo: STRAIGHT_FLUSH, result: [8] },
-      { combo: STRAIGHT_FLUSH, result: [7] }
+      { rule: STRAIGHT_FLUSH, combo: [14], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [13], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [12], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [11], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [10], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [9], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [8], kickers: [] },
+      { rule: STRAIGHT_FLUSH, combo: [7], kickers: [] }
     ]
 
     expect(sortRanks(ranks)).to.be.deep.equal(expected)
