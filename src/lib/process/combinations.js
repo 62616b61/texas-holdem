@@ -3,7 +3,7 @@ module.exports = function combinations (table, player) {
 
   for (let i = 0; i < table.length; i++) {
     for (let j = i + 1; j < table.length; j++) {
-      const hand = Object.assign([], table)
+      const hand = [].concat(table)
 
       hand[i] = player[0]
       hand[j] = player[1]
