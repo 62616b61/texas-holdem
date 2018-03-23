@@ -79,27 +79,45 @@ function getEffectiveKickers (current, neighbour) {
 }
 
 function output (array) {
+  const groups = []
   const strings = []
 
-  for (let i = 0; i < array.length; i++) {
-    const { name, rule, combo, kickers } = array[i]
+  groups.push([array[0]])
+  for (let i = 1; i < array.length; i++) {
+    const { rule } = array[i]
+    const lastGr = groups[groups.length - 1]
 
-    const separator = '|'
-    const last = i === array.length - 1
-    const displayKickers = array.length > 1 && rule === array[last ? i - 1 : i + 1].rule
-    const string = [i + 1, name, numToRule[rule]]
-      .concat(combo.map(card => numToFace(card)))
-      .concat(
-        displayKickers
-          ? [separator].concat(
-              getEffectiveKickers(kickers, array[last ? i - 1 : i + 1].kickers)
-                .map(face => parseInt(face) ? numToFace(face) : face)
-            )
-          : []
-      )
-
-    strings.push(string.join(' '))
+    if (rule === lastGr[0].rule) {
+      lastGr.push(array[i])
+    } else {
+      groups.push([array[i]])
+    }
   }
+
+  let counter = 1
+
+  groups.forEach(group => {
+    for (let i = 0; i < group.length; i++) {
+      const { name, rule, combo, kickers } = group[i]
+
+      const separator = '|'
+      const last = i === group.length - 1
+      const displayKickers = group.length > 1 && rule === group[last ? i - 1 : i + 1].rule
+      const string = [counter, name, numToRule[rule]]
+        .concat(combo.map(card => numToFace(card)))
+        .concat(
+          displayKickers
+          ? [separator].concat(
+            getEffectiveKickers(kickers, group[last ? i - 1 : i + 1].kickers)
+            .map(face => parseInt(face) ? numToFace(face) : face)
+          )
+          : []
+        )
+
+      strings.push(string.join(' '))
+      counter++
+    }
+  })
 
   return strings.join('\n')
 }

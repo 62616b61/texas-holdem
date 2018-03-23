@@ -189,4 +189,37 @@ describe('output', () => {
       expect(output(r)).to.be.equal(expected[i])
     })
   })
+
+  it('produces output for players with mixed results', () => {
+    const combos = [
+      [
+        { name: 'Jared', rule: 7, combo: [14], kickers: [10] },
+        { name: 'Josh', rule: 3, combo: [9], kickers: [8, 7] },
+        { name: 'Jane', rule: 3, combo: [9], kickers: [8, 5] },
+        { name: 'Joanna', rule: 0, combo: [14], kickers: [13, 12, 11, 9] },
+        { name: 'Jack', rule: 0, combo: [14], kickers: [13, 12, 11, 9] },
+        { name: 'John', rule: 0, combo: [14], kickers: [13, 12, 11, 9] },
+        { name: 'Jeff', rule: 0, combo: [14], kickers: [13, 12, 11, 9] },
+        { name: 'Jyll', rule: 0, combo: [14], kickers: [13, 12, 11, 8] },
+        { name: 'Joice', rule: 0, combo: [14], kickers: [13, 12, 11, 7] }
+      ]
+    ]
+
+    const expected = [
+      "1 Jared Four of a Kind Ace\n" +
+      "2 Josh Three of a Kind Nine | Eight Seven\n" +
+      "3 Jane Three of a Kind Nine | Eight Five\n" +
+      "4 Joanna High Card Ace | Tie\n" +
+      "5 Jack High Card Ace | Tie\n" +
+      "6 John High Card Ace | Tie\n" +
+      "7 Jeff High Card Ace | King Queen Jack Nine\n" +
+      "8 Jyll High Card Ace | King Queen Jack Eight\n" +
+      "9 Joice High Card Ace | King Queen Jack Seven"
+    ]
+
+    combos.forEach((r, i) => {
+      expect(output(r)).to.be.equal(expected[i])
+    })
+  })
+
 })
