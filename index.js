@@ -1,6 +1,6 @@
 const readline = require('readline')
 const holdem = require('./src/app.js')
-const { validate } = require('./src/lib/validate')
+const { validate } = require('./src/lib/process')
 
 const rl = readline.createInterface({
   input: process.stdin,
