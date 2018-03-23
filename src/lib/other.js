@@ -1,5 +1,5 @@
 module.exports = {
-  handToNum: {
+  ruleToNum: {
     HIGH_CARD:       0,
     PAIR:            1,
     TWO_PAIR:        2,
@@ -11,7 +11,7 @@ module.exports = {
     STRAIGHT_FLUSH:  8
   },
 
-  numToHand: [
+  numToRule: [
     'High Card',
     'Pair',
     'Two Pair',

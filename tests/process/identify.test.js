@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 
-const { handToNum } = require('../../src/lib/other')
+const { ruleToNum } = require('../../src/lib/other')
 const {
   HIGH_CARD,
   PAIR,
@@ -11,7 +11,7 @@ const {
   FULL_HOUSE,
   FOUR_OF_A_KIND,
   STRAIGHT_FLUSH,
-} = handToNum
+} = ruleToNum
 
 const { count, identify } = require('../../src/lib/process')
 

@@ -1,4 +1,4 @@
-const { handToNum, suits } = require('../other')
+const { ruleToNum, suits } = require('../other')
 const {
   combo,
   sameSuit,
@@ -18,7 +18,7 @@ const {
   FULL_HOUSE,
   FOUR_OF_A_KIND,
   STRAIGHT_FLUSH
-} = handToNum
+} = ruleToNum
 
 function StraightFlush (cards, count) {
   if (Object.keys(count).length !== 5) return false

@@ -1,10 +1,10 @@
-const { handToNum, faceToNum, numToFace, numToHand } = require('./other')
+const { ruleToNum, faceToNum, numToFace, numToRule } = require('./other')
 const rules = require('./rules')
 
 const {
   TWO_PAIR,
   FULL_HOUSE
-} = handToNum
+} = ruleToNum
 
 
 function parse (array) {
@@ -68,10 +68,6 @@ function identify (cards, count) {
   return rank
 }
 
-function howManyComboCards (combo) {
-  return [TWO_PAIR, FULL_HOUSE].includes(combo) ? 2 : 1
-}
-
 function getKickers (current, next) {
   if (current.combo !== next.combo) return false
 
@@ -92,13 +88,6 @@ function getKickers (current, next) {
   }
 }
 
-function getComboCards (combo, result) {
-  return result
-    .slice(0, howManyComboCards(combo))
-    .map(face => numToFace(face))
-    .join(' ')
-}
-
 function output (array) {
   const strings = []
   let prevKickers = false
@@ -110,7 +99,7 @@ function output (array) {
     const string = [
       i + 1,
       name,
-      numToHand[combo],
+      numToRule[combo],
       comboCards
     ]
 
