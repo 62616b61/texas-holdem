@@ -1,5 +1,6 @@
 const { sortCards, sortRanks } = require('./lib/sort.js')
 const {
+  validate,
   parse,
   count,
   combinations,

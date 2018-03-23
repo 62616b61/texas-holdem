@@ -1,4 +1,4 @@
-const { faces, suits } = require('./other')
+const { faces, suits } = require('../other')
 
 function validateCard (card) {
   if (
@@ -10,7 +10,7 @@ function validateCard (card) {
   }
 }
 
-function validate (array, cards, firstln) {
+module.exports = function validate (array, cards, firstln) {
   if (array.length !== (firstln ? 5 : 3)) {
     throw new Error(`Incorrect number of cards specified`)
   }
@@ -24,8 +24,4 @@ function validate (array, cards, firstln) {
       throw new Error(`Card ${card} already exists`)
     }
   }
-}
-
-module.exports = {
-  validate
 }
