@@ -28,8 +28,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: STRAIGHT_FLUSH,
-        result: [8]
+        rule: STRAIGHT_FLUSH,
+        combo: [8],
+        kickers: []
       }
 
       expect(rules[0](cards, count(cards))).to.be.deep.equal(expected)
@@ -75,8 +76,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: FOUR_OF_A_KIND,
-        result: [8, 2]
+        rule: FOUR_OF_A_KIND,
+        combo: [8],
+        kickers: [2]
       }
 
       expect(rules[1](cards, count(cards))).to.be.deep.equal(expected)
@@ -108,8 +110,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: FULL_HOUSE,
-        result: [5, 9]
+        rule: FULL_HOUSE,
+        combo: [5, 9],
+        kickers: []
       }
 
       expect(rules[2](cards, count(cards))).to.be.deep.equal(expected)
@@ -155,8 +158,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: FLUSH,
-        result: [9, 8, 6, 3, 2]
+        rule: FLUSH,
+        combo: [9],
+        kickers: [8, 6, 3, 2]
       }
 
       expect(rules[3](cards, count(cards))).to.be.deep.equal(expected)
@@ -188,8 +192,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: STRAIGHT,
-        result: [8]
+        rule: STRAIGHT,
+        combo: [8],
+        kickers: []
       }
 
       expect(rules[4](cards, count(cards))).to.be.deep.equal(expected)
@@ -235,8 +240,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: THREE_OF_A_KIND,
-        result: [8, 5, 2]
+        rule: THREE_OF_A_KIND,
+        combo: [8],
+        kickers: [5, 2]
       }
 
       expect(rules[5](cards, count(cards))).to.be.deep.equal(expected)
@@ -268,8 +274,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: PAIR,
-        result: [5, 9, 8, 2]
+        rule: PAIR,
+        combo: [5],
+        kickers: [9, 8, 2]
       }
 
       expect(rules[6](cards, count(cards))).to.be.deep.equal(expected)
@@ -285,8 +292,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: TWO_PAIR,
-        result: [8, 5, 2]
+        rule: TWO_PAIR,
+        combo: [8, 5],
+        kickers: [2]
       }
 
       expect(rules[6](cards, count(cards))).to.be.deep.equal(expected)
@@ -318,8 +326,9 @@ describe('Rules (card combinations)', () => {
       ]
 
       const expected = {
-        combo: HIGH_CARD,
-        result: [14, 12, 10, 8, 6]
+        rule: HIGH_CARD,
+        combo: [14],
+        kickers: [12, 10, 8, 6]
       }
 
       expect(rules[7](cards)).to.be.deep.equal(expected)

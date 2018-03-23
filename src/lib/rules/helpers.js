@@ -1,5 +1,13 @@
 const { suits } = require('../other')
 
+function combo ({rule, cards, kickers}) {
+  return {
+    rule,
+    combo: cards,
+    kickers: kickers ? kickers : []
+  }
+}
+
 function sameSuit (cards) {
   return suits.some(suit => cards.every(card => card.suit === suit))
 }
@@ -36,6 +44,7 @@ function getFaces (cards) {
 }
 
 module.exports = {
+  combo,
   sameSuit,
   fiveConsecutive,
   getDuplicates,
