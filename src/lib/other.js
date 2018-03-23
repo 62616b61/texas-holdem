@@ -31,21 +31,23 @@ module.exports = {
     A: 14
   },
 
-  numToFace: [
-    'Two',
-    'Three',
-    'Four',
-    'Five',
-    'Six',
-    'Seven',
-    'Eight',
-    'Nine',
-    'Ten',
-    'Jack',
-    'Queen',
-    'King',
-    'Ace',
-  ],
+  numToFace: (face) => {
+    return [
+      'Two',
+      'Three',
+      'Four',
+      'Five',
+      'Six',
+      'Seven',
+      'Eight',
+      'Nine',
+      'Ten',
+      'Jack',
+      'Queen',
+      'King',
+      'Ace',
+    ][face - 2]
+  },
 
   faces: ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'],
   suits: ['S', 'D', 'H', 'C']

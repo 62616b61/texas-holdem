@@ -1,5 +1,11 @@
-const { faceToNum, numToFace, numToHand } = require('./other')
+const { handToNum, faceToNum, numToFace, numToHand } = require('./other')
 const rules = require('./rules')
+
+const {
+  TWO_PAIR,
+  FULL_HOUSE
+} = handToNum
+
 
 function parse (array) {
   const result = []
@@ -62,17 +68,71 @@ function identify (cards, count) {
   return rank
 }
 
+function howManyComboCards (combo) {
+  return [TWO_PAIR, FULL_HOUSE].includes(combo) ? 2 : 1
+}
+
+function getKickers (current, next) {
+  if (current.combo !== next.combo) return false
+
+  for (let i = 0; i < current.result.length; i++) {
+    if (current.result[i] !== next.result[i]) {
+      const cc = howManyComboCards(current.combo)
+
+      return {
+        current: current.result.slice(cc, i + 1),
+        next: next.result.slice(cc, i + 1)
+      }
+    }
+  }
+
+  return {
+    current: 'Tie',
+    next: 'Tie'
+  }
+}
+
+function getComboCards (combo, result) {
+  return result
+    .slice(0, howManyComboCards(combo))
+    .map(face => numToFace(face))
+    .join(' ')
+}
+
 function output (array) {
-  return array.map((item, i) => {
-    const {name, combo, result} = item
-    const face = result[0]
+  const strings = []
+  let prevKickers = false
 
-    const winCard = numToFace[face - 2] +
-      ([2, 6].includes(combo) ? ' ' + numToFace[result[1] - 2] : '')
+  for (let i = 0; i < array.length; i++) {
+    const { name, combo, result } = array[i]
 
-    return `${i + 1} ${name} ${numToHand[combo]} ${winCard}`
-  })
-  .join('\n')
+    const comboCards = getComboCards(combo, result)
+    const string = [
+      i + 1,
+      name,
+      numToHand[combo],
+      comboCards
+    ]
+
+    // Kickers
+    const isLastItem = i === array.length - 1
+    const currentKickers = !isLastItem
+      ? getKickers(array[i], array[i + 1])
+      : false
+
+    const kickers = isLastItem ? prevKickers.next : currentKickers.current
+
+    if (kickers) {
+      string.push('|')
+      kickers.forEach(k => string.push(numToFace(k)))
+    }
+
+    prevKickers = currentKickers
+
+    strings.push(string.join(' '))
+  }
+
+  return strings.join('\n')
 }
 
 module.exports = {
