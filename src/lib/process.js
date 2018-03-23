@@ -68,55 +68,35 @@ function identify (cards, count) {
   return rank
 }
 
-function getKickers (current, next) {
-  if (current.combo !== next.combo) return false
-
-  for (let i = 0; i < current.result.length; i++) {
-    if (current.result[i] !== next.result[i]) {
-      const cc = howManyComboCards(current.combo)
-
-      return {
-        current: current.result.slice(cc, i + 1),
-        next: next.result.slice(cc, i + 1)
-      }
+function getEffectiveKickers (current, neighbour) {
+  for (let i = 0; i < current.length; i++) {
+    if (current[i] !== neighbour[i]) {
+      return current.slice(0, i + 1)
     }
   }
 
-  return {
-    current: 'Tie',
-    next: 'Tie'
-  }
+  return ['Tie']
 }
 
 function output (array) {
   const strings = []
-  let prevKickers = false
 
   for (let i = 0; i < array.length; i++) {
-    const { name, combo, result } = array[i]
+    const { name, rule, combo, kickers } = array[i]
 
-    const comboCards = getComboCards(combo, result)
-    const string = [
-      i + 1,
-      name,
-      numToRule[combo],
-      comboCards
-    ]
-
-    // Kickers
-    const isLastItem = i === array.length - 1
-    const currentKickers = !isLastItem
-      ? getKickers(array[i], array[i + 1])
-      : false
-
-    const kickers = isLastItem ? prevKickers.next : currentKickers.current
-
-    if (kickers) {
-      string.push('|')
-      kickers.forEach(k => string.push(numToFace(k)))
-    }
-
-    prevKickers = currentKickers
+    const separator = '|'
+    const last = i === array.length - 1
+    const displayKickers = array.length > 1 && rule === array[last ? i - 1 : i + 1].rule
+    const string = [i + 1, name, numToRule[rule]]
+      .concat(combo.map(card => numToFace(card)))
+      .concat(
+        displayKickers
+          ? [separator].concat(
+              getEffectiveKickers(kickers, array[last ? i - 1 : i + 1].kickers)
+                .map(face => parseInt(face) ? numToFace(face) : face)
+            )
+          : []
+      )
 
     strings.push(string.join(' '))
   }
