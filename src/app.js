@@ -8,6 +8,12 @@ const {
   output
 } = require('./lib/process')
 
+/**
+ * Begin processing.
+ * 1. Create all possible combinations of cards for each player
+ * 2. Rank each combination and find the best one
+ * 3. Rank players by their best hands
+ */
 module.exports = (table, players) => {
   const tableParsed = parse(table)
   const playersParsed = players.map(player => ({
@@ -15,20 +21,21 @@ module.exports = (table, players) => {
     cards: parse(player.cards)
   }))
 
-  const result = []
-  playersParsed.forEach(player => {
-    const ranks = combinations(tableParsed, player.cards).map(hand => {
+  const result = playersParsed.map(player => {
+    const possibleCombinations = combinations(tableParsed, player.cards)
+    const ranks = possibleCombinations.map(hand => {
       const h = sortCards(hand)
       const c = count(h)
 
       return identify(h, c)
     })
 
-    result.push(Object.assign(
+    const bestRank = sortRanks(ranks)[0]
+    return Object.assign(
       {},
       { name: player.name },
-      sortRanks(ranks)[0]
-    ))
+      bestRank
+    )
   })
 
   return output(sortRanks(result))

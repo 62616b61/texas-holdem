@@ -1,5 +1,5 @@
-function sortCards (hand) {
-  return hand.sort((a, b) => a.face > b.face ? -1 : (b.face > a.face ? 1 : 0))
+function sortCards (array) {
+  return array.sort((a, b) => a.face > b.face ? -1 : (b.face > a.face ? 1 : 0))
 }
 
 function sortRanks (ranks) {
