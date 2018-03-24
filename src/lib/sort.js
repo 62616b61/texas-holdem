@@ -4,8 +4,8 @@ function sortCards (hand) {
 
 function sortRanks (ranks) {
   return ranks.sort((a, b) => {
-    const cA = [a.rule].concat(a.combo).concat(a.kickers)
-    const cB = [b.rule].concat(b.combo).concat(b.kickers)
+    const cA = [a.rule].concat(a.combo, a.kickers)
+    const cB = [b.rule].concat(b.combo, b.kickers)
 
     for (let i = 0; i < cA.length; i++) {
       if (cA[i] > cB[i]) {
