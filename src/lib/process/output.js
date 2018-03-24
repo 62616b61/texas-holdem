@@ -12,7 +12,7 @@ function getEffectiveKickers (current, neighbour) {
 
 module.exports = function output (array) {
   let counter = 1
-  const strings = []
+  const output = []
 
   const groups = array.reduce((acc, cur) => {
     if (acc.length && acc[acc.length - 1][0].rule === cur.rule) {
@@ -31,22 +31,22 @@ module.exports = function output (array) {
 
       const separator = '|'
       const last = i === group.length - 1
-      const displayKickers = group.length > 1 && rule === group[last ? i - 1 : i + 1].rule
-      const string = [counter, name, numToRule[rule]]
+      const shouldDisplayKickers = group.length > 1
+        && rule === group[last ? i - 1 : i + 1].rule
+      const line = [counter, name, numToRule[rule]]
         .concat(combo.map(card => numToFace(card)))
-        .concat(
-          displayKickers
-          ? [separator].concat(
-            getEffectiveKickers(kickers, group[last ? i - 1 : i + 1].kickers)
-            .map(face => parseInt(face) ? numToFace(face) : face)
-          )
-          : []
-        )
 
-      strings.push(string.join(' '))
+      if (shouldDisplayKickers) {
+        line.push(separator)
+        getEffectiveKickers(kickers, group[last ? i - 1 : i + 1].kickers)
+          .map(face => parseInt(face) ? numToFace(face) : face)
+          .forEach(kicker => line.push(kicker))
+      }
+
+      output.push(line.join(' '))
       counter++
     }
   })
 
-  return strings.join('\n')
+  return output.join('\n')
 }
