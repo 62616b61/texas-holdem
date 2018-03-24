@@ -8,7 +8,7 @@ const {
   output
 } = require('./lib/process')
 
-/**
+/*
  * Begin processing.
  * 1. Create all possible combinations of cards for each player
  * 2. Rank each combination and find the best one

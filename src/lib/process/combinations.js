@@ -1,3 +1,7 @@
+/*
+ * Creates all possible combinations of player's cards and community cards.
+ * Player's cards must be present in each combination.
+ */
 module.exports = function combinations (table, player) {
   const hands = []
 

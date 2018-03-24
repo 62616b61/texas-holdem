@@ -108,6 +108,11 @@ function HighCard (cards) {
   })
 }
 
+/*
+ * Rules are ordered in descending order by it's respective importance.
+ * When the check is done against each rule,
+ * the first found rank is the best one.
+ */
 module.exports = [
   StraightFlush,
   FourOfAKind,

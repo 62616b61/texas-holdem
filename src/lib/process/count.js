@@ -1,3 +1,7 @@
+/*
+ * Counts cards in a hand which is important for certain rule's checks
+ * (pairs, three of a kind, four of a kind).
+ */
 module.exports = function count (cards) {
   return cards.reduce((acc, card) => {
     if (acc[card.face]) {

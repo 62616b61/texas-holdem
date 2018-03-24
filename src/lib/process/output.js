@@ -1,5 +1,9 @@
 const { numToFace, numToRule } = require('../other')
 
+/*
+ * Find those kickers which decide your position in a ranking list.
+ * Or, if all kickers are the same, return tie.
+ */
 function getEffectiveKickers (current, neighbour) {
   for (let i = 0; i < current.length; i++) {
     if (current[i] !== neighbour[i]) {
@@ -10,10 +14,17 @@ function getEffectiveKickers (current, neighbour) {
   return ['Tie']
 }
 
+/*
+ * Produces final output string out of array of users and their rank.
+ */
 module.exports = function output (array) {
   let counter = 1
   const output = []
 
+  /*
+   * Group resulting ranks by rule.
+   * It allows to determine effective kickers among each group.
+   */
   const groups = array.reduce((acc, cur) => {
     if (acc.length && acc[acc.length - 1][0].rule === cur.rule) {
       acc[acc.length - 1].push(cur)
@@ -31,12 +42,18 @@ module.exports = function output (array) {
 
       const separator = '|'
       const last = i === group.length - 1
-      const shouldDisplayKickers = group.length > 1
-        && rule === group[last ? i - 1 : i + 1].rule
+
       const line = [counter, name, numToRule[rule]]
         .concat(combo.map(card => numToFace(card)))
 
-      if (shouldDisplayKickers) {
+      /*
+       * Kickers should be displayed only if the number of resulting lines
+       * is greater than 1 in a group.
+       * Effective kickers are found by comparing kickers of
+       * current resulting line and neighbouring resuling line (always next,
+       * unless current resulting line is the last one in a group).
+       */
+      if (group.length > 1) {
         line.push(separator)
         getEffectiveKickers(kickers, group[last ? i - 1 : i + 1].kickers)
           .map(face => parseInt(face) ? numToFace(face) : face)

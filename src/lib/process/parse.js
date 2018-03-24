@@ -1,5 +1,8 @@
 const { faceToNum } = require('../other')
 
+/*
+ * Parses an array of strings into an array of objects.
+ */
 module.exports = function parse (array) {
   const result = []
 

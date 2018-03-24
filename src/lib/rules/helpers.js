@@ -1,5 +1,9 @@
 const { suits } = require('../other')
 
+/*
+ * Produces an object that represents hand's rank,
+ * including combo cards and kickers.
+ */
 function combo ({rule, cards, kickers}) {
   return {
     rule,
@@ -8,10 +12,16 @@ function combo ({rule, cards, kickers}) {
   }
 }
 
+/*
+ * Identifies whether each card in a hand is of the same suit.
+ */
 function sameSuit (cards) {
   return suits.some(suit => cards.every(card => card.suit === suit))
 }
 
+/*
+ * Identifies whether a hand is comprised of five consecutive cards.
+ */
 function fiveConsecutive (cards) {
   for (let i = 1; i < cards.length; i++) {
     if (cards[i].face + 1 !== cards[i - 1].face) {
@@ -22,6 +32,9 @@ function fiveConsecutive (cards) {
   return true
 }
 
+/*
+ * Finds all repeating cards (pairs, triples, quadruples)
+ */
 function getDuplicates (count, num) {
   const found = []
   Object.keys(count).forEach(face => {
@@ -35,6 +48,9 @@ function getDuplicates (count, num) {
     : false
 }
 
+/*
+ * Finds kickers for given cards via excluding combo cards.
+ */
 function getKickers (cards, duplicates) {
   return getFaces(cards.filter(card => !duplicates.includes(card.face)))
 }
