@@ -9,6 +9,11 @@ const rl = readline.createInterface({
 
 const table = []
 const players = []
+
+/*
+ * Holds all occurences of cards.
+ * Is used to determine duplicates in input.
+ */
 const cards = []
 
 let firstln = true
@@ -24,10 +29,17 @@ rl.on('line', line => {
     process.exit(0)
   }
 
+  /*
+   * Save all occurences of cards to later determine possible duplicates.
+   */
   for (let i = firstln ? 0 : 1; i < input.length; i++) {
     cards.push(input[i])
   }
 
+  /*
+   * If the line is the first one, treat it like community cards,
+   * otherwise like player's cards.
+   */
   if (firstln) {
     firstln = false
     input.forEach(item => table.push(item))
@@ -38,6 +50,9 @@ rl.on('line', line => {
     })
   }
 }).on('close', () => {
+  /*
+   * When input interface is closed, run the application.
+   */
   if (table.length && players.length) {
     console.log(holdem(table, players))
   }
