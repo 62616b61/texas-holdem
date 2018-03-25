@@ -33,5 +33,3 @@ Output
 2 Sam Two Pair Ace King
 3 John Pair Seven
 ```
-
-Then we can add things to the store
