@@ -22,7 +22,7 @@ module.exports = function output (array) {
   const output = []
 
   /*
-   * Group resulting ranks by rule.
+   * Group resulting ranks by rule AND combo cards.
    * It allows to determine effective kickers among each group.
    */
   const groups = array.reduce((acc, cur) => {
