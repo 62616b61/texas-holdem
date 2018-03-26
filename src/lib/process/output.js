@@ -48,12 +48,15 @@ module.exports = function output (array) {
 
       /*
        * Kickers should be displayed only if the number of resulting lines
-       * is greater than 1 in a group.
+       * is greater than 1 in a group and combo cards are different.
        * Effective kickers are found by comparing kickers of
        * current resulting line and neighbouring resuling line (always next,
        * unless current resulting line is the last one in a group).
        */
-      if (group.length > 1) {
+      const shouldDisplayKickers = group.length > 1
+        && combo.every((c, j) => group[last ? i - 1 : i + 1].combo[j] === c)
+
+      if (shouldDisplayKickers) {
         line.push(separator)
         getEffectiveKickers(kickers, group[last ? i - 1 : i + 1].kickers)
           .map(face => parseInt(face) ? numToFace(face) : face)
